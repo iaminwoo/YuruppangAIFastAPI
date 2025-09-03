@@ -10,14 +10,13 @@ genai.configure(api_key=GOOGLE_API_KEY)
 model = genai.GenerativeModel('gemini-1.5-flash')
 
 
-async def generate_by_gemini(video_info: dict, captions: str, url: str, categories: str) -> str:
+async def generate_by_gemini(video_info: dict, url: str, categories: str) -> str:
     full_prompt = f"""
     Video Info: {video_info}
-    Captions: {captions}
     Url: {url}
     Categories: {categories}
 
-    이 영상의 Video Info, Captions를 통해서 레시피에 필요한 재료를 정리해줘.
+    이 영상의 Video Info를 통해서 레시피에 필요한 재료를 정리해줘.
 
     결과는 반드시 JSON 형태로만 출력해 줘.
     JSON 항목은 아래를 참고해줘.
@@ -38,7 +37,6 @@ async def generate_by_gemini(video_info: dict, captions: str, url: str, categori
     - quantity가 2-3처럼 범위일 경우 평균값을 정수로 사용해주고 unit은 반드시 g, ml, 개 중 하나로 맞춰줘.
     - 만약 '한 꼬집', '적당량' 같이 정확한 수치를 알 수 없는 경우, 최대한 생각해서 알려주고 애매하면 기본값인 0g으로 해줘.
     - 그리고 description에 명시되지 않아서 예상해서 적은 재료의 이름들을 적어줘.
-    - Captions에 특별한 주의사항이나 만드는 방법이 없다면 그냥 무시해주고 언급하지 말아줘.
     - description 은 한문장마다 줄바꿈을 해주고 적당히 문단도 나눠줘.
     - 채널에 대해서 쓸때는, (출처 "채널명" : "url") 이렇게 적어줘.
     """

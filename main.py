@@ -27,9 +27,9 @@ async def generate_recipe(data: VideoURL):
     if not video_info:
         raise HTTPException(status_code=404, detail="Video not found")
 
-    captions = get_captions(video_id)
+    # captions = get_captions(video_id)
 
-    gemini_result = await generate_by_gemini(video_info, captions, data.youtube_url, data.categories)
+    gemini_result = await generate_by_gemini(video_info, data.youtube_url, data.categories)
 
     validate_ingredients(gemini_result)
 
